@@ -21,6 +21,14 @@ public class Vertice<T> {
         this.dado = dado;
     }
 
+    public ArrayList<Aresta<T>> getArestasEntrada() {
+        return arestasEntrada;
+    }
+
+    public ArrayList<Aresta<T>> getArestasSaida() {
+        return arestasSaida;
+    }
+
     public void adicionarArestaEntrada(Aresta<T> aresta){
         arestasEntrada.add(aresta);
     }

@@ -29,10 +29,32 @@ public class Grafo<T> {
         Vertice<T> vertice = null;
         for(Vertice<T> vert : vertices){
             if(vert.getDado().equals(dado)){
-                vert = vertice;
+                vertice = vert;
                 break;
             }
         }
         return vertice;
+    }
+
+    public void buscaEmLargura(){
+        ArrayList<Vertice<T>> marcados = new ArrayList<>();
+        ArrayList<Vertice<T>> fila = new ArrayList<>();
+        Vertice<T> atual = vertices.get(0);
+        marcados.add(atual);
+        System.out.println(atual.getDado());
+        fila.add(atual);
+        while(fila.size() > 0){
+            Vertice<T> visitado = fila.get(0);
+            for(int i = 0; i < visitado.getArestasSaida().size(); i++){
+                Vertice<T> proximo = visitado.getArestasSaida().get(i).getDestino();
+                if(!marcados.contains(proximo)){
+                    marcados.add(proximo);
+                    fila.add(proximo);
+                    System.out.println(proximo.getDado());
+                }
+            }
+            fila.remove(0);
+        }
+
     }
 }
