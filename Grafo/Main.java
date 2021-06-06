@@ -11,11 +11,13 @@ public class Main {
 
         grafo.adicionarAresta(2.0, "João", "Lorenzo");
         grafo.adicionarAresta(3.0, "Lorenzo", "Cleber");
+        grafo.adicionarAresta(3.0, "Lorenzo", "Creuza");
         grafo.adicionarAresta(1.0, "Cleber", "Creuza");
         grafo.adicionarAresta(1.0, "João", "Creuza");
         grafo.adicionarAresta(3.0, "João", "Claudio");
         grafo.adicionarAresta(3.0, "Claudio", "Lorenzo");
+        grafo.adicionarAresta(1.0, "Creuza", "Cleber");
 
-        grafo.buscaEmLargura();
+        grafo.dijkstra();
     }
 }

@@ -2,11 +2,19 @@ package maratonaProgramacao.Grafo;
 
 import java.util.ArrayList;
 
-public class Vertice<T> {
+public class Vertice<T> implements Comparable<Vertice<T>>{
     private T dado;
-    private double distanciaMinima = Double.MAX_VALUE;
+    private Double distanciaMinima = Double.MAX_VALUE;
     private ArrayList<Aresta<T>> arestasEntrada;
     private ArrayList<Aresta<T>> arestasSaida;
+
+    @Override
+    public String toString(){
+        StringBuilder st = new StringBuilder();
+        st.append("Dado: " + this.getDado() + " ");
+        st.append("Distância mínima: " + this.getDistanciaMinima() + " ");
+        return st.toString();
+    }
 
     public Vertice(T dado){
         this.dado = dado;
@@ -44,5 +52,10 @@ public class Vertice<T> {
 
     public void adicionarArestaSaida(Aresta<T> aresta){
         arestasSaida.add(aresta);
+    }
+
+    @Override
+    public int compareTo(Vertice<T> o) {
+        return this.distanciaMinima.compareTo(o.getDistanciaMinima());
     }
 }

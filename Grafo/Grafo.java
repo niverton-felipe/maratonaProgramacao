@@ -1,6 +1,8 @@
 package maratonaProgramacao.Grafo;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Grafo<T> {
     private ArrayList<Vertice<T>> vertices;
@@ -61,14 +63,14 @@ public class Grafo<T> {
 
     public void dijkstra(){
         ArrayList<Vertice<T>> visitados = new ArrayList<>();
-        ArrayList<Vertice<T>> fila = new ArrayList<>();
+        Queue<Vertice<T>> fila = new PriorityQueue<>();
         Vertice<T> atual = vertices.get(0);
         atual.setDistanciaMinima(0);
         visitados.add(atual);
         System.out.println(atual.getDado());
         fila.add(atual);
         while(!fila.isEmpty()){
-            Vertice<T> visitado = fila.get(0);
+            Vertice<T> visitado = fila.peek();
             for(int i = 0; i < visitado.getArestasSaida().size(); i++){
                 Vertice<T> proximo = visitado.getArestasSaida().get(i).getDestino();
                 /*O processo de relaxamento consiste em
@@ -77,16 +79,16 @@ public class Grafo<T> {
                 double distanciaParOrigem = visitado.getDistanciaMinima() + visitado.getArestasSaida().get(i).getPeso();
                 if(proximo.getDistanciaMinima() > distanciaParOrigem){
                     proximo.setDistanciaMinima(distanciaParOrigem);
+                    System.out.println(proximo);
                 }
 
                 /* se visitado ainda não foi visitado, então deve-se fazer o processo de expansão*/
                 if(!visitados.contains(proximo)){
                     visitados.add(proximo);
                     fila.add(proximo);
-                    System.out.println(proximo.getDado());
                 }
             }
-            fila.remove(0);
+            fila.poll();
         }
 
     }
