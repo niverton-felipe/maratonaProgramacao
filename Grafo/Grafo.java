@@ -37,18 +37,51 @@ public class Grafo<T> {
     }
 
     public void buscaEmLargura(){
-        ArrayList<Vertice<T>> marcados = new ArrayList<>();
+        ArrayList<Vertice<T>> visitados = new ArrayList<>();
         ArrayList<Vertice<T>> fila = new ArrayList<>();
         Vertice<T> atual = vertices.get(0);
-        marcados.add(atual);
+        atual.setDistanciaMinima(0);
+        visitados.add(atual);
         System.out.println(atual.getDado());
         fila.add(atual);
-        while(fila.size() > 0){
+        while(!fila.isEmpty()){
             Vertice<T> visitado = fila.get(0);
             for(int i = 0; i < visitado.getArestasSaida().size(); i++){
                 Vertice<T> proximo = visitado.getArestasSaida().get(i).getDestino();
-                if(!marcados.contains(proximo)){
-                    marcados.add(proximo);
+                if(!visitados.contains(proximo)){
+                    visitados.add(proximo);
+                    fila.add(proximo);
+                    System.out.println(proximo.getDado());
+                }
+            }
+            fila.remove(0);
+        }
+
+    }
+
+    public void dijkstra(){
+        ArrayList<Vertice<T>> visitados = new ArrayList<>();
+        ArrayList<Vertice<T>> fila = new ArrayList<>();
+        Vertice<T> atual = vertices.get(0);
+        atual.setDistanciaMinima(0);
+        visitados.add(atual);
+        System.out.println(atual.getDado());
+        fila.add(atual);
+        while(!fila.isEmpty()){
+            Vertice<T> visitado = fila.get(0);
+            for(int i = 0; i < visitado.getArestasSaida().size(); i++){
+                Vertice<T> proximo = visitado.getArestasSaida().get(i).getDestino();
+                /*O processo de relaxamento consiste em
+                comparar a distância mínima do vizinho com distância Mínima do vertice expandido + peso do vizinho
+                se a primeira for maior, então está é atualizada com a soma do segundo */
+                double distanciaParOrigem = visitado.getDistanciaMinima() + visitado.getArestasSaida().get(i).getPeso();
+                if(proximo.getDistanciaMinima() > distanciaParOrigem){
+                    proximo.setDistanciaMinima(distanciaParOrigem);
+                }
+
+                /* se visitado ainda não foi visitado, então deve-se fazer o processo de expansão*/
+                if(!visitados.contains(proximo)){
+                    visitados.add(proximo);
                     fila.add(proximo);
                     System.out.println(proximo.getDado());
                 }
